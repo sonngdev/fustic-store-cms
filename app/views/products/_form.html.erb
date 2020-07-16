@@ -29,13 +29,18 @@
   </div>
 
   <div class="field">
+    <%= form.label :category_id, 'Category' %>
+    <%= form.select :category_id, options_for_select(categories.collect { |c| [c.name, c.id] }) %>
+  </div>
+
+  <div class="field">
     <%= form.label :price_vnd, 'Price in VND' %>
     <%= form.number_field :price_vnd, step: 1000, placeholder: '420000', required: true %>
   </div>
 
   <div class="field">
     <%= form.label :price_usd, 'Price in USD' %>
-    <%= form.number_field :price_usd, placeholder: '19.95', required: true %>
+    <%= form.number_field :price_usd, placeholder: '19.95', required: true, step: 0.01 %>
     <div>
       <small>
         This can be either a whole number (e.g. 19) or a decimal number (e.g. 19.95) <br>
@@ -54,7 +59,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const name = document.querySelector('#product_name');
   const slug = document.querySelector('#product_slug');
-  const priceVnd = document.querySelector('#product_price_vnd');
 
   name.addEventListener('keyup', (e) => {
     slug.value = e.target.value

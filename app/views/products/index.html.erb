@@ -7,6 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Slug</th>
+      <th>Category</th>
       <th>Price vnd</th>
       <th>Price usd</th>
       <th colspan="3"></th>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.slug %></td>
+        <td><%= product.category.name %></td>
         <td><%= product.price_vnd %></td>
         <td><%= product.price_usd %></td>
         <td><%= link_to 'Show', product %></td>

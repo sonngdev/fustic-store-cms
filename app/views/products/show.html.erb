@@ -11,13 +11,18 @@
 </p>
 
 <p>
-  <strong>Price vnd:</strong>
-  <%= @product.price_vnd %>
+  <strong>Category</strong>
+  <%= @product.category.name %>
 </p>
 
 <p>
-  <strong>Price usd:</strong>
-  <%= @product.price_usd %>
+  <strong>Price in VND:</strong>
+  <%= number_with_delimiter @product.price_vnd %> VND
+</p>
+
+<p>
+  <strong>Price in USD:</strong>
+  <%= number_to_currency @product.price_usd %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
