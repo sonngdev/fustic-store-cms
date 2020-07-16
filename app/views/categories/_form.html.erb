@@ -13,15 +13,36 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, autocomplete: 'category-name', placeholder: 'T-Shirts', required: true %>
   </div>
 
   <div class="field">
     <%= form.label :slug %>
-    <%= form.text_field :slug %>
+    <%= form.text_field :slug, placeholder: 't-shirts', required: true %>
+    <div>
+      <small>
+        This appears in product page's URL in the format
+        &lt;domain&gt;/&lt;category-slug&gt;/&lt;product-slug&gt; <br>
+        For example: fustic.store/t-shirts/batherobe-kids
+      </small>
+    </div>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const name = document.querySelector('#category_name');
+  const slug = document.querySelector('#category_slug');
+
+  name.addEventListener('keyup', (e) => {
+    slug.value = e.target.value
+      .trim()
+      .replace(/[\s_]+/g, '-')
+      .toLowerCase();
+  })
+})
+</script>
