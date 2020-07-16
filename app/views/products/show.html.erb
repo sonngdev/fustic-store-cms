@@ -25,5 +25,5 @@
   <%= number_to_currency @product.price_usd %>
 </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Edit', edit_product_path(@product), data: { turbolinks: false } %> |
 <%= link_to 'Back', products_path %>
