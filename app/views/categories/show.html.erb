@@ -10,5 +10,5 @@
   <%= @category.slug %>
 </p>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Edit', edit_category_path(@category), data: { turbolinks: false } %> |
 <%= link_to 'Back', categories_path %>
