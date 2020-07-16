@@ -13,25 +13,54 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, autocomplete: 'product-name', placeholder: 'Batherobe kids', required: true %>
   </div>
 
   <div class="field">
     <%= form.label :slug %>
-    <%= form.text_field :slug %>
+    <%= form.text_field :slug, placeholder: 'batherobe-kids', required: true %>
+    <div>
+      <small>
+        This appears in product page's URL in the format
+        &lt;domain&gt;/&lt;category-slug&gt;/&lt;product-slug&gt; <br>
+        For example: fustic.store/t-shirts/batherobe-kids
+      </small>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :price_vnd %>
-    <%= form.number_field :price_vnd %>
+    <%= form.label :price_vnd, 'Price in VND' %>
+    <%= form.number_field :price_vnd, step: 1000, placeholder: '420000', required: true %>
   </div>
 
   <div class="field">
-    <%= form.label :price_usd %>
-    <%= form.text_field :price_usd %>
+    <%= form.label :price_usd, 'Price in USD' %>
+    <%= form.number_field :price_usd, placeholder: '19.95', required: true %>
+    <div>
+      <small>
+        This can be either a whole number (e.g. 19) or a decimal number (e.g. 19.95) <br>
+        with a maximum of 2 digits after the decimal point. <br>
+        The decimal point should be a dot (.) not a comma (,)
+      </small>
+    </div>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const name = document.querySelector('#product_name');
+  const slug = document.querySelector('#product_slug');
+  const priceVnd = document.querySelector('#product_price_vnd');
+
+  name.addEventListener('keyup', (e) => {
+    slug.value = e.target.value
+      .trim()
+      .replace(/[\s_]+/g, '-')
+      .toLowerCase();
+  })
+})
+</script>
