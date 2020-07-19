@@ -1,0 +1,27 @@
+<%= form_with(model: general_config, local: true) do |form| %>
+  <% if general_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(general_config.errors.count, "error") %> prohibited this general_config from being saved:</h2>
+
+      <ul>
+        <% general_config.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :landing_vimeo_id %>
+    <%= form.text_field :landing_vimeo_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
