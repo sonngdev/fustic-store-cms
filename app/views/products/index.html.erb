@@ -20,10 +20,10 @@
       <tr>
         <td>
           <% if (thumbnail = product.thumbnail) %>
-            <img src="<%= url_for thumbnail %>" alt="<%= "#{product.name} 1" %>" class="products-thumbnail">
+            <%= image_tag thumbnail, class: 'products-thumbnail' %>
           <% end %>
           <% if (alt_thumbnail = product.alt_thumbnail) %>
-            <img src="<%= url_for alt_thumbnail %>" alt="<%= "#{product.name} 2" %>" class="products-thumbnail">
+            <%= image_tag alt_thumbnail, class: 'products-thumbnail' %>
           <% end %>
         </td>
         <td><%= product.name %></td>

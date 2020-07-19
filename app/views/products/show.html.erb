@@ -27,7 +27,7 @@
 
 <% @product.images.each_with_index do |image, i| %>
   <figure>
-    <img src="<%= url_for image %>" alt="<%= "#{@product.name} #{i + 1}" %>" class="product-image">
+    <%= image_tag image, class: 'product-image' %>
   </figure>
 <% end %>
 
