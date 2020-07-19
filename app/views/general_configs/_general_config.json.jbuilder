@@ -1,2 +1,5 @@
-json.extract! general_config, :id, :landing_vimeo_id, :active, :created_at, :updated_at
-json.url general_config_url(general_config, format: :json)
+json.general_config do
+  return json.nil! if general_config.blank?
+
+  json.extract! general_config, :id, :landing_vimeo_id, :active, :created_at, :updated_at
+end

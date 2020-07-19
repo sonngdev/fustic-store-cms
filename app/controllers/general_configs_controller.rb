@@ -1,6 +1,12 @@
 class GeneralConfigsController < ApplicationController
   before_action :set_general_config, only: [:show, :edit, :update, :destroy]
 
+  # GET /general_configs/active
+  # GET /general_configs/active.json
+  def active
+    @general_config = GeneralConfig.order(id: :desc).find_by(active: true)
+  end
+
   # GET /general_configs
   # GET /general_configs.json
   def index
