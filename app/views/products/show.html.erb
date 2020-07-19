@@ -25,5 +25,11 @@
   <%= number_to_currency @product.price_usd %>
 </p>
 
+<% @product.images.each_with_index do |image, i| %>
+  <figure>
+    <img src="<%= url_for image %>" alt="<%= "#{@product.name} #{i + 1}" %>" class="product-image">
+  </figure>
+<% end %>
+
 <%= link_to 'Edit', edit_product_path(@product), data: { turbolinks: false } %> |
 <%= link_to 'Back', products_path %>

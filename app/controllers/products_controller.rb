@@ -25,17 +25,19 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = Product.create!(product_params)
+    ProductImageManager.create!(
+      product_id: @product.id,
+      order: @product.images.map(&:id),
+      thumbnail_id: @product.images.first.id,
+      alt_thumbnail_id: @product.images.second.id,
+    )
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to @product, notice: 'Product was successfully created.'
+  rescue ActiveRecord::RecordInvalid => invalid
+    set_categories
+    flash.now[:warning] = 'Product was failed to create. Ensure that data is valid.'
+    render :new
   end
 
   # PATCH/PUT /products/1

@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Thumbnails</th>
       <th>Name</th>
       <th>Slug</th>
       <th>Category</th>
@@ -17,6 +18,14 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td>
+          <% if (thumbnail = product.thumbnail) %>
+            <img src="<%= url_for thumbnail %>" alt="<%= "#{product.name} 1" %>" class="products-thumbnail">
+          <% end %>
+          <% if (alt_thumbnail = product.alt_thumbnail) %>
+            <img src="<%= url_for alt_thumbnail %>" alt="<%= "#{product.name} 2" %>" class="products-thumbnail">
+          <% end %>
+        </td>
         <td><%= product.name %></td>
         <td><%= product.slug %></td>
         <td><%= product.category.name %></td>
