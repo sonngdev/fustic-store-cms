@@ -26,12 +26,13 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.create!(product_params)
-    ProductImageManager.create!(
+    manager = ProductImageManager.create!(
       product_id: @product.id,
       order: @product.images.map(&:id),
       thumbnail_id: @product.images.first.id,
       alt_thumbnail_id: @product.images.second.id,
     )
+    @product.update!(image_manager_id: manager.id)
     redirect_to @product, notice: 'Product was successfully created.'
   rescue ActiveRecord::RecordInvalid => invalid
     set_categories
@@ -43,7 +44,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     @product.update!(product_params)
-    @product.manager.update!(
+    @product.image_manager.update!(
       order: @product.images.map(&:id),
       thumbnail_id: @product.images.first.id,
       alt_thumbnail_id: @product.images.second.id,
