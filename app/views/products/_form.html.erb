@@ -50,6 +50,11 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= form.label :images, 'Images' %>
+    <%= form.file_field :images, multiple: true, accept: 'image/png, image/jpeg' %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
