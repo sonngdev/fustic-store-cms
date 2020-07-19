@@ -50,6 +50,12 @@
     </div>
   </div>
 
+  <% product.images.each_with_index do |image, i| %>
+    <figure>
+      <img src="<%= url_for image %>" alt="<%= "#{product.name} #{i + 1}" %>" class="product-image">
+    </figure>
+  <% end %>
+
   <div class="field">
     <%= form.label :images, 'Images' %>
     <%= form.file_field :images, multiple: true, accept: 'image/png, image/jpeg' %>

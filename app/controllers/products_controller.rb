@@ -32,26 +32,27 @@ class ProductsController < ApplicationController
       thumbnail_id: @product.images.first.id,
       alt_thumbnail_id: @product.images.second.id,
     )
-
     redirect_to @product, notice: 'Product was successfully created.'
   rescue ActiveRecord::RecordInvalid => invalid
     set_categories
-    flash.now[:warning] = 'Product was failed to create. Ensure that data is valid.'
+    flash.now[:warning] = 'Product failed to create. Ensure that data is valid.'
     render :new
   end
 
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
-    end
+    @product.update!(product_params)
+    @product.manager.update!(
+      order: @product.images.map(&:id),
+      thumbnail_id: @product.images.first.id,
+      alt_thumbnail_id: @product.images.second.id,
+    )
+    redirect_to @product, notice: 'Product was successfully updated.'
+  rescue ActiveRecord::RecordInvalid => invalid
+    set_categories
+    flash.now[:warning] = 'Product failed to update. Ensure that data is valid.'
+    render :edit
   end
 
   # DELETE /products/1
