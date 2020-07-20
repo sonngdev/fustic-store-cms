@@ -1,6 +1,9 @@
 json.extract! product, :id, :name, :slug, :price_vnd, :price_usd, :created_at, :updated_at
 
-json.category product.category
+json.category do
+  json.merge! product.category.as_json
+  json.singular_name product.category.name.singularize
+end
 
 manager = product.image_manager
 sorted_images = product.images.sort_by {|image| manager.order.index(image.id) }
