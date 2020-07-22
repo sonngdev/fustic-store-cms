@@ -1,3 +1,32 @@
 // Place all the styles related to the general_configs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.configs-placeholder-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.config-placeholder-image {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.loader {
+  border: 5px solid #f3f3f3;
+  animation: spin 1s linear infinite;
+  border-top: 5px solid #555;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none;
+}
