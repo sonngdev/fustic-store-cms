@@ -75,6 +75,6 @@ class GeneralConfigsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def general_config_params
-      params.require(:general_config).permit(:landing_vimeo_id, :active)
+      params.require(:general_config).permit(:landing_vimeo_id, :landing_placeholder_image_url, :active)
     end
 end
