@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sizes
   resources :general_configs do
     get :active, on: :collection
   end
