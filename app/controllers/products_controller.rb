@@ -30,13 +30,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.create!(product_params)
-    manager = ProductImageManager.create!(
-      product_id: @product.id,
-      order: @product.images.map(&:id),
-      thumbnail_id: @product.images.first&.id,
-      alt_thumbnail_id: @product.images.second&.id,
-    )
-    @product.update!(image_manager_id: manager.id)
+    create_image_manager
     redirect_to @product, notice: 'Product was successfully created.'
   rescue ActiveRecord::RecordInvalid => invalid
     set_categories
@@ -78,6 +72,16 @@ class ProductsController < ApplicationController
 
     def set_categories
       @categories = Category.all
+    end
+
+    def create_image_manager
+      manager = ProductImageManager.create!(
+        product_id: @product.id,
+        order: @product.images.map(&:id),
+        thumbnail_id: @product.images.first&.id,
+        alt_thumbnail_id: @product.images.second&.id,
+      )
+      @product.update!(image_manager_id: manager.id)
     end
 
     # Only allow a list of trusted parameters through.
