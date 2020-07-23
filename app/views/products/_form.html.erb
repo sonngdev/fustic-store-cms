@@ -29,7 +29,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :category_id, 'Category' %>
+    <%= form.label :category_id %>
     <%= form.select :category_id, options_for_select(categories.collect { |c| [c.name, c.id] }) %>
   </div>
 
@@ -52,7 +52,7 @@
 
   <% product.images.each_with_index do |image, i| %>
     <figure>
-      <img src="<%= url_for image %>" alt="<%= "#{product.name} #{i + 1}" %>" class="product-image">
+      <%= image_tag image, class: 'product-image' %>
     </figure>
   <% end %>
 

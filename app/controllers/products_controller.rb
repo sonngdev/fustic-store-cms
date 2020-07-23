@@ -33,8 +33,8 @@ class ProductsController < ApplicationController
     manager = ProductImageManager.create!(
       product_id: @product.id,
       order: @product.images.map(&:id),
-      thumbnail_id: @product.images.first.id,
-      alt_thumbnail_id: @product.images.second.id,
+      thumbnail_id: @product.images.first&.id,
+      alt_thumbnail_id: @product.images.second&.id,
     )
     @product.update!(image_manager_id: manager.id)
     redirect_to @product, notice: 'Product was successfully created.'
@@ -50,8 +50,8 @@ class ProductsController < ApplicationController
     @product.update!(product_params)
     @product.image_manager.update!(
       order: @product.images.map(&:id),
-      thumbnail_id: @product.images.first.id,
-      alt_thumbnail_id: @product.images.second.id,
+      thumbnail_id: @product.images.first&.id,
+      alt_thumbnail_id: @product.images.second&.id,
     )
     redirect_to @product, notice: 'Product was successfully updated.'
   rescue ActiveRecord::RecordInvalid => invalid
