@@ -14,4 +14,8 @@ class Product < ApplicationRecord
   def alt_thumbnail
     images.find_by(id: image_manager.alt_thumbnail_id)
   end
+
+  def quantity_of_size(size)
+    products_sizes.find_by(size_id: size.id)&.quantity
+  end
 end
