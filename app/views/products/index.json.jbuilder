@@ -1,3 +1,1 @@
-json.products @products do |product|
-  json.partial! "products/product", product: product
-end
+json.array! @products, partial: "products/product", as: :product
