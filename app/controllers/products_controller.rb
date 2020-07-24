@@ -7,9 +7,11 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:category_id]
-      @products = Product.where(category_id: params[:category_id]).includes(:category)
+      @products = Product.where(category_id: params[:category_id])
+        .includes(:category, :image_manager, :sizes).with_attached_images
     else
-      @products = Product.all.includes(:category)
+      @products = Product.all
+        .includes(:category, :image_manager, :sizes).with_attached_images
     end
   end
 
