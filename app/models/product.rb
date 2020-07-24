@@ -3,7 +3,7 @@ class Product < ApplicationRecord
 
   has_one :image_manager, class_name: 'ProductImageManager', dependent: :destroy
 
-  has_many :products_sizes
+  has_many :products_sizes, dependent: :destroy
   has_many :sizes, through: :products_sizes
   has_many_attached :images
 
