@@ -42,11 +42,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1.json
   def update
     @product.update!(product_params)
-    @product.image_manager.update!(
-      order: @product.images.map(&:id),
-      thumbnail_id: @product.images.first&.id,
-      alt_thumbnail_id: @product.images.second&.id,
-    )
+    update_image_manager
     redirect_to @product, notice: 'Product was successfully updated.'
   rescue ActiveRecord::RecordInvalid => invalid
     set_categories
@@ -82,6 +78,14 @@ class ProductsController < ApplicationController
         alt_thumbnail_id: @product.images.second&.id,
       )
       @product.update!(image_manager_id: manager.id)
+    end
+
+    def update_image_manager
+      @product.image_manager.update!(
+        order: @product.images.map(&:id),
+        thumbnail_id: @product.images.first&.id,
+        alt_thumbnail_id: @product.images.second&.id,
+      )
     end
 
     # Only allow a list of trusted parameters through.
