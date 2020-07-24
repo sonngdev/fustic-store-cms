@@ -13,3 +13,8 @@ json.images sorted_images do |image|
   json.is_alt_thumbnail image.id == manager.alt_thumbnail_id
   json.created_at image.created_at
 end
+
+json.sizes product.products_sizes do |ps|
+  json.name ps.size.name
+  json.in_stock ps.quantity > 0
+end
