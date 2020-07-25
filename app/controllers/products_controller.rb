@@ -71,6 +71,8 @@ class ProductsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+    rescue
+      @product = Product.find_by!(slug: params[:id])
     end
 
     def set_categories
