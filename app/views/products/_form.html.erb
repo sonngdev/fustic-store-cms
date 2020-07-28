@@ -29,7 +29,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :category_id, 'Category' %>
+    <%= form.label :category_id %>
     <%= form.select :category_id, options_for_select(categories.collect { |c| [c.name, c.id] }) %>
   </div>
 
@@ -50,14 +50,28 @@
     </div>
   </div>
 
+  <div class="field">
+    <%= form.label :products_sizes, 'Quantity for each size' %>
+    <% sizes.each do |size| %>
+      <%= size.name %>:
+      <%= form.number_field 'products_sizes[][quantity]', min: 0, placeholder: 10, value: product.quantity_of_size(size) %>
+      <%= form.hidden_field 'products_sizes[][size_id]', value: size.id %>
+    <% end %>
+    <div>
+      <small>
+        Leave blank for unavailable sizes
+      </small>
+    </div>
+  </div>
+
   <% product.images.each_with_index do |image, i| %>
     <figure>
-      <img src="<%= url_for image %>" alt="<%= "#{product.name} #{i + 1}" %>" class="product-image">
+      <%= image_tag image, class: 'product-image' %>
     </figure>
   <% end %>
 
   <div class="field">
-    <%= form.label :images, 'Images' %>
+    <%= form.label :images %>
     <%= form.file_field :images, multiple: true, accept: 'image/png, image/jpeg' %>
   </div>
 

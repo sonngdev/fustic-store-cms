@@ -1,0 +1,67 @@
+<%= form_with(model: general_config, local: true) do |form| %>
+  <% if general_config.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(general_config.errors.count, "error") %> prohibited this general_config from being saved:</h2>
+
+      <ul>
+        <% general_config.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :landing_vimeo_id %>
+    <%= form.text_field :landing_vimeo_id, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landing_placeholder_image_url %>
+    <%= form.text_field :landing_placeholder_image_url, required: true %>
+  </div>
+
+  <div class="loader hidden"></div>
+  <%= image_tag general_config.landing_placeholder_image_url || '', id: 'general_config_landing_placeholder_image_preview', class: 'config-placeholder-image' %>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const vimeo = document.querySelector('#general_config_landing_vimeo_id');
+  const placeholder = document.querySelector('#general_config_landing_placeholder_image_url');
+  const preview = document.querySelector('#general_config_landing_placeholder_image_preview');
+  const loader = document.querySelector('form .loader');
+
+  vimeo.addEventListener('change', async (e) => {
+    let url;
+
+    loader.classList.remove('hidden');
+
+    try {
+      const thumbnailReq = await fetch(`http://vimeo.com/api/v2/video/${e.target.value}.json`);
+      const thumbnailRes = await thumbnailReq.json();
+      url = thumbnailRes[0].thumbnail_large.replace('.webp', '.jpg');
+    } catch {
+      url = '';
+    }
+
+    loader.classList.add('hidden');
+
+    placeholder.value = url;
+    preview.src = url;
+  })
+
+  placeholder.addEventListener('change', (e) => {
+    preview.src = e.target.value;
+  })
+})
+</script>

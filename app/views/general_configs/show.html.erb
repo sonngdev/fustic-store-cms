@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Landing vimeo id:</strong>
+  <%= @general_config.landing_vimeo_id %>
+</p>
+
+<p>
+  <strong>Landing placeholder image url:</strong>
+  <%= @general_config.landing_placeholder_image_url %>
+</p>
+
+<%= image_tag @general_config.landing_placeholder_image_url, class: 'config-placeholder-image' %>
+
+<p>
+  <strong>Active:</strong>
+  <%= @general_config.active %>
+</p>
+
+<%= link_to 'Edit', edit_general_config_path(@general_config), data: { turbolinks: false } %> |
+<%= link_to 'Back', general_configs_path %>
